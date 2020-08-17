@@ -1,6 +1,8 @@
 
 #include "Shape.h"
 
+#include <utility>
+
 namespace msdfgen {
 
 Shape::Shape() : inverseYAxis(false) { }
@@ -11,7 +13,7 @@ void Shape::addContour(const Contour &contour) {
 
 #ifdef MSDFGEN_USE_CPP11
 void Shape::addContour(Contour &&contour) {
-    contours.push_back((Contour &&) contour);
+    contours.push_back(std::move(contour));
 }
 #endif
 
@@ -85,7 +87,7 @@ void Shape::scanline(Scanline &line, double y) const {
         }
     }
 #ifdef MSDFGEN_USE_CPP11
-    line.setIntersections((std::vector<Scanline::Intersection> &&) intersections);
+    line.setIntersections(std::move(intersections));
 #else
     line.setIntersections(intersections);
 #endif

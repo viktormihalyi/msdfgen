@@ -2,6 +2,7 @@
 #include "Scanline.h"
 
 #include <algorithm>
+#include <utility>
 #include "arithmetics.hpp"
 
 namespace msdfgen {
@@ -82,7 +83,7 @@ void Scanline::setIntersections(const std::vector<Intersection> &intersections) 
 
 #ifdef MSDFGEN_USE_CPP11
 void Scanline::setIntersections(std::vector<Intersection> &&intersections) {
-    this->intersections = (std::vector<Intersection> &&) intersections;
+    this->intersections = std::move(intersections);
     preprocess();
 }
 #endif

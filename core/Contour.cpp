@@ -1,6 +1,7 @@
 
 #include "Contour.h"
 
+#include <utility>
 #include "arithmetics.hpp"
 
 namespace msdfgen {
@@ -15,7 +16,7 @@ void Contour::addEdge(const EdgeHolder &edge) {
 
 #ifdef MSDFGEN_USE_CPP11
 void Contour::addEdge(EdgeHolder &&edge) {
-    edges.push_back((EdgeHolder &&) edge);
+    edges.push_back(std::move(edge));
 }
 #endif
 

@@ -2,6 +2,7 @@
 #include "estimate-sdf-error.h"
 
 #include <cmath>
+#include <utility>
 #include "arithmetics.hpp"
 
 namespace msdfgen {
@@ -39,7 +40,7 @@ void scanlineSDF(Scanline &line, const BitmapConstRef<float, 1> &sdf, const Vect
         }
     }
 #ifdef MSDFGEN_USE_CPP11
-    line.setIntersections((std::vector<Scanline::Intersection> &&) intersections);
+    line.setIntersections(std::move(intersections));
 #else
     line.setIntersections(intersections);
 #endif
@@ -118,7 +119,7 @@ void scanlineMSDF(Scanline &line, const BitmapConstRef<float, N> &sdf, const Vec
         }
     }
 #ifdef MSDFGEN_USE_CPP11
-    line.setIntersections((std::vector<Scanline::Intersection> &&) intersections);
+    line.setIntersections(std::move(intersections));
 #else
     line.setIntersections(intersections);
 #endif
