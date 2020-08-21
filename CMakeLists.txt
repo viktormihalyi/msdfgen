@@ -59,9 +59,16 @@ target_include_directories(msdfgen INTERFACE
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../>
 )
 
+if (MSVC)
+    set (COMPILER_FLAGS)
+else ()
+    set (COMPILER_FLAGS -fPIC)
+endif ()
+
 if(MSDFGEN_USE_CPP11)
 	target_compile_features(msdfgen PUBLIC cxx_std_11)
 	target_compile_definitions(msdfgen PUBLIC MSDFGEN_USE_CPP11)
+	target_compile_options (msdfgen PRIVATE ${COMPILER_FLAGS})
 endif()
 
 if(MSDFGEN_USE_OPENMP)
